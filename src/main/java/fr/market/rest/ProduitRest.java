@@ -1,8 +1,13 @@
 package fr.market.rest;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.market.dao.IProduitRepository;
@@ -16,7 +21,14 @@ public class ProduitRest {
 	@GetMapping("produit")
 	public Iterable <Produit>getAllProduit(){
 		return produitRepo.findAll();
-		
 	}
+	@PostMapping("produit")
+	public Produit saveProduit (@RequestBody Produit p) {
+	    return produitRepo.save(p);
+	}
+	@GetMapping("produit/{id}")
+    public Optional<Produit>getOneProduit(@PathVariable Long id){
+    	return produitRepo.findById(id);
+    }
 	
 }
